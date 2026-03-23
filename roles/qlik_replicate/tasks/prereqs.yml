@@ -1,28 +1,6 @@
-- name: Create qlik group
-  group:
-    name: "{{ qlik_group }}"
-    state: present
-
-- name: Create qlik user
-  user:
-    name: "{{ qlik_user }}"
-    group: "{{ qlik_group }}"
-    shell: /bin/bash
-    create_home: yes
+---
 
 - name: Install required OS packages
   dnf:
     name: "{{ required_packages }}"
     state: present
-
-- name: Create directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{ qlik_user }}"
-    group: "{{ qlik_group }}"
-    mode: '0755'
-  loop:
-    - "{{ install_dir }}"
-    - "{{ data_dir }}"
-    - "{{ log_dir }}"

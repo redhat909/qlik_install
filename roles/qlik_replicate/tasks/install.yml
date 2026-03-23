@@ -1,18 +1,30 @@
-- name: Copy Qlik Replicate RPM
-  copy:
-    src: "{{ qlik_package }}"
-    dest: /tmp/{{ qlik_package }}
-    mode: '0644'
+---
 
-- name: Install Qlik Replicate RPM
-  dnf:
-    name: "/tmp/{{ qlik_package }}"
+- name: Create qlik group
+  group:
+    name: "{{ qlik_group }}"
     state: present
 
-- name: Ensure ownership of install directory
+- name: Create qlik user
+  user:
+    name: "{{ qlik_user }}"
+    group: "{{ qlik_group }}"
+    home: "{{ qlik_install_dir }}"
+    create_home: yes
+
+- name: Create install directory
   file:
-    path: /opt/attunity
+    path: "{{ qlik_install_dir }}"
     state: directory
-    recurse: yes
     owner: "{{ qlik_user }}"
     group: "{{ qlik_group }}"
+
+- name: Copy Qlik Replicate RPM
+  copy:
+    src: qlik-replicate.rpm
+    dest: /tmp/qlik-replicate.rpm
+
+- name: Install Qlik Replicate
+  dnf:
+    name: /tmp/qlik-replicate.rpm
+    state: present

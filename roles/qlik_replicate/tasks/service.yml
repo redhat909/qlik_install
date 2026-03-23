@@ -1,0 +1,7 @@
+---
+
+- name: Enable Qlik Replicate service
+  systemd:
+    name: attunity-replicate
+    enabled: yes
+    state: started
