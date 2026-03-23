@@ -1,0 +1,20 @@
+qlik_user: qlik
+qlik_group: qlik
+
+install_dir: /opt/qlik/replicate
+data_dir: /opt/qlik/replicate/data
+log_dir: /opt/qlik/replicate/log
+
+qlik_package: attunity-replicate-2023.11.0.123-linux-x64.rpm
+service_name: attunity-replicate
+
+required_packages:
+  - libaio
+  - glibc
+  - ksh
+  - tar
+  - gzip
+  - unzip
+  - libnsl
+  - compat-libstdc++-33
+  - numactl-libs

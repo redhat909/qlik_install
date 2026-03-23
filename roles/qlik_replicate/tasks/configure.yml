@@ -1,0 +1,25 @@
+- name: Create environment file
+  copy:
+    dest: /etc/profile.d/qlik_replicate.sh
+    content: |
+      export REPLICATE_HOME=/opt/attunity/replicate
+      export PATH=$PATH:$REPLICATE_HOME/bin
+    mode: '0755'
+
+- name: Deploy systemd service
+  template:
+    src: attunity.service.j2
+    dest: /etc/systemd/system/{{ service_name }}.service
+
+- name: Reload systemd daemon
+  command: systemctl daemon-reload
+
+- name: Enable service
+  systemd:
+    name: "{{ service_name }}"
+    enabled: yes
+
+- name: Start service
+  systemd:
+    name: "{{ service_name }}"
+    state: started

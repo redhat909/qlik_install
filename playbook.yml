@@ -1,0 +1,6 @@
+- name: Install Qlik Replicate on Oracle Linux
+  hosts: qlik_servers
+  become: yes
+
+  roles:
+    - qlik_replicate
