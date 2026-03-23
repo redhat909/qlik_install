@@ -1,0 +1,4 @@
+qlik_install_dir: /opt/qlik
+qlik_service_port: 3552
+qlik_user: qlik
+qlik_group: qlik
